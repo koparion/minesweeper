@@ -3,12 +3,16 @@ package com.example.demo2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -19,57 +23,52 @@ import java.io.IOException;
 
 public class Grid extends Application {
 
-    Stage window;
+
+    double sceneWidth = 1024;
+    double sceneHeight = 768;
+
+    private int n = 10;
+    private int m = 10;
+
+    double gridWidth = 50;//adjust width of actual minefield
+    double gridHeight = 50; //adjust height of actual minefield
+
+    MyNode[][] mineField = new MyNode[n][m];
+
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        window = primaryStage;
-        window.setTitle("Our Project!");
+    public void start(Stage primaryStage) {
 
-        int x = 10;
-        int y = 10;
-        Box [][]cells = new int[x][y];
+        Group head = new Group(); //A Group node contains an ObservableList of children
+                                  // that are rendered in order whenever this node is rendered.
 
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(30, 30, 30, 30)); //10 px padding around layout and window
-        grid.setVgap(1); //individual cells themselves
-        grid.setHgap(1); //individual cells themselves
+        // initialize mineField
+        for( int i=0; i < n; i++) {
+            for( int j=0; j < m; j++) {
 
+                // create node
+                MyNode node = new MyNode("Item " + i + "/" + j, i * 50, j * 50, gridWidth, gridHeight);
 
+                // add node to group
+                head.getChildren().add(node);
 
+                // add to minefield for further reference using an array
+                mineField[i][j] = node;
 
-        for(int i=0; i<10; i++){
-            Rectangle rectangle = new Rectangle(10, 10);
-            rectangle.setStroke(Color.BLACK);
-            rectangle.setFill(Color.LIGHTBLUE);
-            GridPane.setConstraints(rectangle, i, 0);
-            grid.getChildren().add(rectangle);
-            for(int p =0; p<10; p++){
-                Rectangle rectangle2 = new Rectangle(10, 10);
-                rectangle2.setStroke(Color.BLACK);
-                rectangle2.setFill(Color.LIGHTBLUE);
-                GridPane.setConstraints(rectangle2, p, i);
-
-                grid.getChildren().add(rectangle2);
             }
-
         }
 
 
+        Scene scene = new Scene( head, sceneWidth, sceneHeight);
+        
+        scene.setFill(Color.BLACK);
 
-        Scene scene = new Scene(grid, 500, 700); //creates the scene, parameters are what you wanna show.
-        window.setScene(scene); //sets the scene for the window to display;
-
-
-
-
-
-
-
-        window.show();
+        primaryStage.setScene( scene);
+        primaryStage.show();
 
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
+
 }
