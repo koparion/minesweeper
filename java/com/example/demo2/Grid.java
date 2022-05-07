@@ -10,9 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -40,6 +38,15 @@ public class Grid extends Application {
 
         Group head = new Group(); //A Group node contains an ObservableList of children
                                   // that are rendered in order whenever this node is rendered.
+        BorderPane border = new BorderPane(); //instantiate borderpane
+
+        Label center = new Label("MineSweeper!");
+        border.setCenter(center); //center text for border label
+        border.setTranslateX(100);
+        border.setTranslateY(75);
+        border.setBackground(new Background(new BackgroundFill(Color.OLDLACE, new CornerRadii(5), Insets.EMPTY))); //set border color
+        border.setPrefSize(500, 25);//set border size
+
 
         // initialize mineField
         for( int i=0; i < n; i++) {
@@ -55,14 +62,16 @@ public class Grid extends Application {
                 mineField[i][j] = node;
 
             }
+
         }
 
+        head.getChildren().add(border); //add border to the group
 
-        Scene scene = new Scene( head, sceneWidth, sceneHeight);
-        
-        scene.setFill(Color.BLACK);
+        Scene scene = new Scene(head, sceneWidth, sceneHeight);
 
-        primaryStage.setScene( scene);
+        scene.setFill(Color.BLUEVIOLET);
+
+        primaryStage.setScene(scene);
         primaryStage.show();
 
     }
