@@ -1,108 +1,76 @@
 package application;
 	
 
+import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import model.Game;
-import model.Level;
 
-
-public class Main extends Application {
+ 
+public class Main extends Application{
+	 GridPane pane = new GridPane();   //game field
+	 GridPane menu = new GridPane();  //menu field
+	 Minefield mineField = new  Minefield(10,10,20,400,1);     //mine field
+    GridPane ChoosePane = new GridPane();  //difficulty level field
+    GridPane CustomPane = new GridPane();  //self-defined pane field
+    
+    Scene ChooseLevel = new Scene(ChoosePane,400,400);  
+    Scene Game = new Scene(pane);  //game scene
+    Scene CustomMine = new Scene(CustomPane,400,400);
+   /**
+   //menu button field
+   MenuBt btStar = new MenuBt("play agin");
+   MenuBt btChange = new MenuBt("change level");
+   MenuBt btHint = new MenuBt("hint");
+        
+   Scene ChooseLevel = new Scene(ChoosePane,400,400);  
+   Scene Game = new Scene(pane);  //game scene
+   Scene CustomMine = new Scene(CustomPane,400,400);    //custom pane field**/
+   
   
+   public void Start(Stage minesweeper) throws IOException {
+   	
+   	    
+       //game field set up
+       pane.setHgap(25);  
+       pane.setVgap(25);  
+       pane.setAlignment(Pos.CENTER_LEFT);
+       pane.add(mineField,0,0);  
+       pane.add(menu,1,0);  
+       
+       //menu field set up
+       menu.setHgap(20);
+       menu.setVgap(20);
+       menu.setAlignment(Pos.CENTER);
+       menu.setPadding(new Insets(10,10,10,10));
+      
+     
+       
+       //custom field set up
+       CustomPane.setHgap(25);
+       CustomPane.setVgap(25);
+       CustomPane.setAlignment(Pos.CENTER);
+       CustomPane.setPadding(new Insets(10,10,10,10));         
+      
+       //level choose field set up
+       ChoosePane.setVgap(20);
+       ChoosePane.setHgap(20);
+       ChoosePane.setAlignment(Pos.CENTER);
+       
+       minesweeper.setScene(Game);
+       minesweeper.setMinWidth(400);        //minimum width
+       minesweeper.setResizable(false);     
+       minesweeper.setTitle("Minesweeper GUI");
+       minesweeper.show();
+   }
    
-       Game game;
-    
-    public void start(Stage primaryStage) {
-        
-        BorderPane root = new BorderPane();
-        Scene scene = new Scene(root, 650, 750);
-        scene.setFill(Color.OLDLACE);
+   public static void main(String[] args) {
        
-        game = new Game(Level.MEDIUM);
-        
-        
-        
-        /* Menu */
-        MenuBar menuBar = new MenuBar();
-        Menu menus = new Menu("Menus");
-        Menu newGame = new Menu("New Game");
-        MenuItem exitApp = new MenuItem("Quit");
-        MenuItem easy = new MenuItem("Easy (5x5)");
-        MenuItem medium = new MenuItem("Medium (15x15)");
-        MenuItem hard = new MenuItem("Hard (25x25)");
-        
-        newGame.getItems().addAll(easy, medium, hard);
-        menus.getItems().addAll(newGame, exitApp);
-        menuBar.getMenus().addAll(menus);
-        
-        easy.setOnAction(new EventHandler<ActionEvent>() { 
-            public void handle(ActionEvent t) {
-                restartGame(Level.EASY);
-            }
-        });
-        
-        medium.setOnAction(new EventHandler<ActionEvent>() { 
-            public void handle(ActionEvent t) {
-                restartGame(Level.MEDIUM);
-            }
-        });
-        
-        hard.setOnAction(new EventHandler<ActionEvent>() { 
-            public void handle(ActionEvent t) {
-                restartGame(Level.HARD);
-            }
-        });
-        
-        exitApp.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                scene.getWindow().hide();
-            }
-        });
-        
-        
-        
-       
-        
-       
-        VBox topVbox = new VBox();
-        topVbox.getChildren().add(menuBar);
-       
-        
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-          public void handle(WindowEvent we) {
-           
-              System.exit(0);
-          }
-        });     
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Minesweeper");
-        primaryStage.show();
-    }
+       launch(args);
+   }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
-    
-    private void restartGame(Level level) {
-        game.restart(level);
-       
-    }
-    
    
-        //root.setCenter(grid);
-    
 }
