@@ -1,4 +1,4 @@
-package com.example.demo2;
+package application;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
