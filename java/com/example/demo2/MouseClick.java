@@ -1,7 +1,9 @@
 package com.example.demo2;
 
 
+import javafx.scene.Group;
+
 public interface MouseClick {
-	public boolean reveal(Grid g);
-	public boolean flag(Grid g);
+	public void revealOnClick(MyNode bomb, MyNode blank, Group group);
+	//public void flag(MyNode node);
 }

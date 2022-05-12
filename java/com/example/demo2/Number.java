@@ -1,4 +1,4 @@
 package com.example.demo2;
 
-public class Number {
-}
+//public class Number extends MyNode{
+//}

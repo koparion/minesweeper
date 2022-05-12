@@ -30,7 +30,7 @@ public class Runner extends Application {
         // that are rendered in order whenever this node is rendered.
         BorderPane border = new BorderPane(); //instantiate borderpane
         Grid newGrid = new Grid();
-
+        head.getChildren().addAll(newGrid.getGroup());
         Label center = new Label("MineSweeper!");
         border.setCenter(center); //center text for border label
         border.setTranslateX(100);
@@ -39,12 +39,10 @@ public class Runner extends Application {
         border.setPrefSize(500, 25);//set border size
 
 
-        head.getChildren().addAll(newGrid.getGroup());
-
         head.getChildren().add(border); //add border to the group
         Scene scene = new Scene(head, sceneWidth, sceneHeight);
 
-        scene.setFill(Color.BLACK);
+        scene.setFill(Color.BLUEVIOLET);
 
         primaryStage.setScene(scene);
         primaryStage.show();

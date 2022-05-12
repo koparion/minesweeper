@@ -19,39 +19,60 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Grid {
+public class Grid implements MouseClick{
 
 
-    private double sceneWidth = 1024;
-    private double sceneHeight = 768;
+    double sceneWidth = 1024;
+    double sceneHeight = 768;
 
-    private int n = 10;
-    private int m = 10;
+    int n = 10;
+    int m = 10;
 
-    double gridWidth = 50;//adjust width of actual minefield
-    double gridHeight = 50; //adjust height of actual minefield
+    double gridWidth = sceneWidth / n;
+    double gridHeight = sceneHeight / m;
 
     MyNode[][] mineField = new MyNode[n][m]; //minefield of nodes.
 
     private Group head = new Group(); //A Group node contains an ObservableList of children
     // that are rendered in order whenever this node is rendered.
 
+    public MyNode getNode(int n, int j) { //get specific node n, j
+        return mineField[n][j];
+    }
+
+    @Override
+    public void revealOnClick(MyNode bomb, MyNode blank, Group group) { //event handler
+        blank.setOnMousePressed(event -> {
+            group.getChildren().remove(blank);
+            group.getChildren().add(bomb);
+        });
+    }
 
     // initialize mineField
     public Grid() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 // create node
-                MyNode node = new MyNode("Item " + i + "/" + j, i * 50, j * 50, gridWidth, gridHeight);
+                Blank node = new Blank( "Item " + i + "/" + j, i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+                Bomb bomb = new Bomb( "Im a bomb", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+                int finalI = i;
+                int finalJ = j;
+                this.revealOnClick(bomb, node, head); //call event handler
 
                 // add node to group
                 head.getChildren().add(node);
 
                 // add to minefield for further reference using an array
                 mineField[i][j] = node;
+
             }
+
         }
+
     }
+
+
+
 
     public Group getGroup() { //return head to be used in runner
         return head;
