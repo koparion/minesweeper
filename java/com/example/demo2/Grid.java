@@ -19,11 +19,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Grid extends Application {
+public class Grid {
 
 
-    double sceneWidth = 1024;
-    double sceneHeight = 768;
+    private double sceneWidth = 1024;
+    private double sceneHeight = 768;
 
     private int n = 10;
     private int m = 10;
@@ -31,27 +31,16 @@ public class Grid extends Application {
     double gridWidth = 50;//adjust width of actual minefield
     double gridHeight = 50; //adjust height of actual minefield
 
-    MyNode[][] mineField = new MyNode[n][m];
+    MyNode[][] mineField = new MyNode[n][m]; //minefield of nodes.
 
-    @Override
-    public void start(Stage primaryStage) {
-
-        Group head = new Group(); //A Group node contains an ObservableList of children
-                                  // that are rendered in order whenever this node is rendered.
-        BorderPane border = new BorderPane(); //instantiate borderpane
-
-        Label center = new Label("MineSweeper!");
-        border.setCenter(center); //center text for border label
-        border.setTranslateX(100);
-        border.setTranslateY(75);
-        border.setBackground(new Background(new BackgroundFill(Color.OLDLACE, new CornerRadii(5), Insets.EMPTY))); //set border color
-        border.setPrefSize(500, 25);//set border size
+    private Group head = new Group(); //A Group node contains an ObservableList of children
+    // that are rendered in order whenever this node is rendered.
 
 
-        // initialize mineField
-        for( int i=0; i < n; i++) {
-            for( int j=0; j < m; j++) {
-
+    // initialize mineField
+    public Grid() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
                 // create node
                 MyNode node = new MyNode("Item " + i + "/" + j, i * 50, j * 50, gridWidth, gridHeight);
 
@@ -60,24 +49,14 @@ public class Grid extends Application {
 
                 // add to minefield for further reference using an array
                 mineField[i][j] = node;
-
             }
-
         }
-
-        head.getChildren().add(border); //add border to the group
-
-        Scene scene = new Scene(head, sceneWidth, sceneHeight);
-
-        scene.setFill(Color.BLUEVIOLET);
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public Group getGroup() { //return head to be used in runner
+        return head;
     }
-
 }
+
+
+
