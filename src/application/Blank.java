@@ -1,4 +1,4 @@
-package com.example.demo2;
+package application;
 
 public class Blank extends MyNode { //uncovered, blank rectangles
 

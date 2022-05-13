@@ -1,0 +1,13 @@
+.background {
+    -fx-background-color: black;
+}
+
+.button-pressed{
+    -fx-padding: -5px;
+    
+}
+
+.menu {
+    -fx-background-color: grey;
+    -fx-text-fill: black;
+}
