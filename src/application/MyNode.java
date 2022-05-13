@@ -8,29 +8,27 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public abstract class MyNode extends StackPane  { //node for single individual rectangle
-    Rectangle rectangle;
-    Label label;
+public abstract class MyNode extends StackPane { // node for single individual rectangle
+	Rectangle rectangle;
+	Label label;
 
+	public MyNode(String name, double x, double y, double width, double height) {
+		
+		rectangle = new Rectangle(width, height); // new rectangle of x width and y height
+		rectangle.setStroke(Color.WHITE);
+		rectangle.setFill(Color.GREY);
 
-    public MyNode( String name, double x, double y, double width, double height) {
+		label = new Label(name); // label on top of rectangles
 
-        rectangle = new Rectangle( width, height); // new rectangle of x width and y height
-        rectangle.setStroke(Color.BLACK);
-        rectangle.setFill(Color.GREY);
+		// set position
+		setTranslateX(x);
+		setTranslateY(y);
 
-        label = new Label(name); //label on top of rectangles
+		getChildren().addAll(rectangle, label);
 
-        // set position
-        setTranslateX(x);
-        setTranslateY(y);
+	}
 
-        getChildren().addAll( rectangle, label);
+	public MyNode() {
 
-    }
-
-
-    public MyNode() {
-
-    }
+	}
 }
