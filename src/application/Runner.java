@@ -34,6 +34,8 @@ public class Runner extends Application {
 		HBox box = new HBox(20);
 		head.getChildren().addAll(newGrid.getGroup());
 		Label center = new Label("MineSweeper!");
+		//newGrid.player.play();
+
 		
 //		HBox hbox = new HBox(20);
 //		hbox.setSpacing(20);
