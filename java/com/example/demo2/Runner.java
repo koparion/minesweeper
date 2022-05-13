@@ -39,7 +39,7 @@ public class Runner extends Application {
         border.setPrefSize(500, 25);//set border size
 
 
-        head.getChildren().add(border); //add border to the group
+        //head.getChildren().add(border); //add border to the group
         Scene scene = new Scene(head, sceneWidth, sceneHeight);
 
         scene.setFill(Color.BLUEVIOLET);

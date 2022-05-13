@@ -30,4 +30,7 @@ public abstract class MyNode extends StackPane  { //node for single individual r
     }
 
 
+    public MyNode() {
+
+    }
 }
