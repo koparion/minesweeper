@@ -1,40 +1,11 @@
 package application;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-
-import java.awt.BorderLayout;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class Grid implements MouseClick {
 	//File troll = new File("src/application/troll-pilled.mp4");
