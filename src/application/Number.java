@@ -15,7 +15,6 @@ public class Number extends MyNode{
         super();
     }
 
-
     public int getNum() {
         return num;
     }
