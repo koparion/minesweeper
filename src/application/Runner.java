@@ -11,6 +11,9 @@ import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -51,9 +54,7 @@ public class Runner extends Application {
 
 		// head.getChildren().add(border); //add border to the group
 		Scene scene = new Scene(head, sceneWidth, sceneHeight);
-
 		scene.setFill(Color.BLUEVIOLET);
-
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

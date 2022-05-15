@@ -12,6 +12,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Bomb extends MyNode {
@@ -20,16 +21,11 @@ public class Bomb extends MyNode {
 		super(view, x, y, width, height);
 		this.rectangle.setFill(Color.PINK);
 		
+		StackPane pane = new StackPane();
+		pane.setStyle("-fx-background-image: url(\"https://c.tenor.com/_bTaLmoLSc4AAAAd/troll-pilled.gif\");"+
+	            "-fx-background-size: cover;");
+		getChildren().add(pane);
 		
-//		ImageView troll = new ImageView();
-//		File file = new File("\\src\\application\\troll.jpg");
-//		Image img = new Image("https://c.tenor.com/_bTaLmoLSc4AAAAd/troll-pilled.gif");
-//		troll.setImage(img);
-//		
-//		HBox pic = new HBox();
-//		pic.getChildren()
-//.add(troll);
-		//this.rectangle.setStyle("-fx-background-image: url(/src/application/troll.jpg)");
 
 	}
 

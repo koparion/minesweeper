@@ -31,7 +31,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Grid implements MouseClick {
 	//File troll = new File("src/application/troll-pilled.mp4");
@@ -67,6 +70,7 @@ public class Grid implements MouseClick {
 
 	public void reveal(Group group, Blank blank) {
 		group.getChildren().remove(blank); // remove blank for appearance purposes
+		
 	}
 
 	public void revealNum(MyNode blank, Group group, int i, int j) {
@@ -117,16 +121,28 @@ public class Grid implements MouseClick {
 			// on click, we wanna remove blank from the group, and we want to see
 			// wether a bomb, number, or a nothing is underneath
 			reveal(group, (Blank) blank);// all we are doing is revealing on click.
+			
 			if (mineField[i][j] instanceof Bomb) {
 				System.out.println("Im a bomb breh, you lose"); // implement way to make player lose
 				num = 0;
-				player.play();
-				//imageView.setImage(image);
-				
-				JOptionPane.showMessageDialog(null,"You Lost!"); // popups up message
+				this.player.play();
+
+				// storing image as icon
+                ImageIcon file = new ImageIcon(getClass().getResource("/troll-pilled.gif"));
+              
+                // pop up dialag upon losing
+                JOptionPane.showMessageDialog(
+                        null,
+                        "You Lost Bro!",
+                        "Message", JOptionPane.INFORMATION_MESSAGE,
+                        file);
+
+						
+				//JOptionPane.showMessageDialog(null, "You Lost"); // popups up message
 				
 			    
 			} else if (mineField[i][j] instanceof Blank) {
+				
 				System.out.println("Regular Blank"); // show number, or, nothing
 				if (mineField[i - 1][j - 1] instanceof Bomb) {
 					num++;
@@ -152,15 +168,19 @@ public class Grid implements MouseClick {
 				if (mineField[i + 1][j] instanceof Bomb) {
 					num++;
 				}
+				
 				System.out.println(num); // print num of bombs around
 				String s = Integer.toString(num); // set to string
 				Number number = new Number(s, i * gridWidth, j * gridHeight, gridWidth, gridHeight, num); // display on
-																										// num
+																							// num
 				number.label.setStyle("-fx-text-fill: white;"); // displaying numbers from bomb white
 				group.getChildren().add(number); // show num of bombs
+			
 				num = 0;
+				
 			}
 		});
+		
 	}
 
 	// initialize mineField
@@ -175,7 +195,7 @@ public class Grid implements MouseClick {
 				Bomb bomb = new Bomb(view, i * gridWidth, j * gridHeight, gridWidth, gridHeight);
 				
 				this.revealOnClick(node, head, i, j); // call event handler
-
+				
 				if (Math.random() <= 0.20) {
 					head.getChildren().add(bomb); // add the bomb
 					head.getChildren().add(node); // add the node on top to hide the bomb
@@ -184,6 +204,7 @@ public class Grid implements MouseClick {
 					head.getChildren().add(node); // just add the node only
 					mineField[i][j] = node; // that position is a node
 				}
+				
 				// else if (){ // this will be the numbers?
 				// }
 				// add node to group
@@ -195,4 +216,14 @@ public class Grid implements MouseClick {
 	public Group getGroup() { // return head to be used in runner
 		return head;
 	}
+	
+//	public void floodFill(int col, int row, int num) {
+//		
+//		if(row < 0 || row >= num || col < 0 || col >= num) {
+//			return;
+//		}
+//		if(mineField[col][row] != num) {
+//			return;
+//		}
+//	}
 }
