@@ -1,9 +1,6 @@
 package com.example.demo2;
 
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 public abstract class MyNode extends StackPane  { //node for single individual rectangle
     Rectangle rectangle;
     Label label;
-
+    int num = 0;
 
     public MyNode( String name, double x, double y, double width, double height) {
 
@@ -28,9 +25,13 @@ public abstract class MyNode extends StackPane  { //node for single individual r
         getChildren().addAll( rectangle, label);
 
     }
-
-
+    public int getNum() {
+        return num;
+    }
+    public void setNum(int num){this.num = this.num;
+    }
     public MyNode() {
 
     }
+
 }
