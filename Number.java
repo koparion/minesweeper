@@ -9,7 +9,8 @@ public class Number extends MyNode{
     public Number(String name, double x, double y, double width, double height, int num){
         super(name, x, y, width, height);
         this.num = num;
-        this.rectangle.setFill(Color.BLUE);
+        this.rectangle.setFill(Color.rgb(244,183,113));
+        
     }
     public Number(){
         super();
