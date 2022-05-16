@@ -1,29 +1,14 @@
 package application;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class Grid implements MouseClick {
 
 
-    double sceneWidth = 1024;
-    double sceneHeight = 768;
+    double sceneWidth = 600;
+    double sceneHeight = 600;
 
     int n = 10;
     int m = 10;
@@ -156,27 +141,24 @@ public class Grid implements MouseClick {
     }
 
 
-    void floodFill( int x, int y, Group group, Blank blank ) {
-        Boolean isFillable = false;
-        if ( mineField[x][y].getNum()==0) {
-            if (mineField[x][y] instanceof Number){
-                isFillable = true;
-            }
-            if(isFillable==true){
-                reveal(group, blank);
-                floodFill( x+1, y, group, blank );
-                floodFill( x-1, y, group, blank );
-                floodFill( x, y-1, group, blank );
-                floodFill( x, y+1, group, blank );
-            }
-
-        } else {
-            return;
-        }
-    }
-
-
-
+//    void floodFill( int x, int y, Group group, Blank blank ) {
+//        Boolean isFillable = false;
+//        if ( mineField[x][y].getNum()==0) {
+//            if (mineField[x][y] instanceof Number){
+//                isFillable = true;
+//            }
+//            if(isFillable==true){
+//                reveal(group, blank);
+//                floodFill( x+1, y, group, blank );
+//                floodFill( x-1, y, group, blank );
+//                floodFill( x, y-1, group, blank );
+//                floodFill( x, y+1, group, blank );
+//            }
+//
+//        } else {
+//            return;
+//        }
+//    }
 
 
     @Override
@@ -186,16 +168,18 @@ public class Grid implements MouseClick {
             //on click, we wanna remove blank from the group, and we want to see
             //wether a bomb, number, or a nothing is underneath
             reveal(group, (Blank) blank);//all we are doing is revealing on click.
-            floodFill(i, j, group, (Blank) blank);
+            //floodFill(i, j, group, (Blank) blank);
             if (mineField[i][j] instanceof Bomb) {
                 System.out.println("Im a bomb breh, you lose"); //implement way to make player lose
                 num = 0;
+                ImageIcon file = new ImageIcon(getClass().getResource("troll-pilled.gif"));
+                
+				// pop up dialag upon losing
+				JOptionPane.showMessageDialog(null, "You Lost Bro!", "Message", JOptionPane.INFORMATION_MESSAGE, file);
             } else if (mineField[i][j] instanceof Number) {
 
             }
         });
-
-
     }
 
     // initialize mineField
@@ -204,9 +188,9 @@ public class Grid implements MouseClick {
             for (int j = 0; j < m; j++) {
                 // create node
                 Blank node = new Blank("Item " + i + "/" + j, i * gridWidth, j * gridHeight, gridWidth, gridHeight);
-                Bomb bomb = new Bomb("Im a bomb", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+               
+            	Bomb bomb = new Bomb("Im a bomb", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
                 //i want 20 bombs
-
 
 
                 if (Math.random() <= 0.20) {
@@ -226,7 +210,6 @@ public class Grid implements MouseClick {
                 if (mineField[i][j] instanceof Number) {
                     bombHint(i, j);
 
-
                     mineFieldNums = num;
                     mineField[i][j].setNum(mineFieldNums);
                     String s = Integer.toString(num); //set to string
@@ -240,7 +223,6 @@ public class Grid implements MouseClick {
 
                 }
             }
-
         }
     }
 
@@ -253,7 +235,53 @@ public class Grid implements MouseClick {
         //maybe we can throw bombs all around the board, then write another for loop, to throw numbers all around the board?
 
 
-        public Group getGroup () { //return head to be used in runner
+        public Grid(int parseInt, int parseInt2) {
+		// TODO Auto-generated constructor stub
+        	for ( parseInt = 0; parseInt < n; parseInt++) {
+                for (parseInt2 = 0; parseInt2 < m; parseInt2++) {
+                    // create node
+                    Blank node = new Blank("Item " + parseInt + "/" + parseInt2, parseInt * gridWidth, parseInt2 * gridHeight, gridWidth, gridHeight);
+                    Bomb bomb = new Bomb("Im a bomb", parseInt * gridWidth, parseInt2 * gridHeight, gridWidth, gridHeight);
+                    //i want 20 bombs
+
+
+
+                    if (Math.random() <= 0.20) {
+                        head.getChildren().add(bomb); //add the bomb
+                        head.getChildren().add(node); //add the node on top to hide the bomb
+                        mineField[parseInt][parseInt2] = bomb; //that position is a bomb
+                        this.revealOnClick(node, head, parseInt, parseInt2); //call event handler
+                    } else {
+                        Number number = new Number();
+                        mineField[parseInt][parseInt2] = number; //that position is a node
+                    }
+
+                }
+            }
+        	for ( parseInt = 0; parseInt < n; parseInt++) {
+                for (parseInt2 = 0; parseInt2 < m; parseInt2++) {
+                    if (mineField[parseInt][parseInt2] instanceof Number) {
+                        bombHint(parseInt, parseInt2);
+
+
+                        mineFieldNums = num;
+                        mineField[parseInt][parseInt2].setNum(mineFieldNums);
+                        String s = Integer.toString(num); //set to string
+                        Number number = new Number(s, parseInt * gridWidth, parseInt2 * gridHeight, gridWidth, gridHeight, num); //display on num
+                        Blank node = new Blank("Item " + parseInt + "/" + parseInt2, parseInt * gridWidth, parseInt2 * gridHeight, gridWidth, gridHeight);
+                        this.revealOnClick(node, head, parseInt, parseInt2); //call event handler
+                        //after the new number is constructed, set num=0;
+                        num = 0;
+                        head.getChildren().add(number); //number goes underneath node
+                        head.getChildren().add(node); //add node to hide number
+
+                    }
+                }
+
+            }
+	}
+
+		public Group getGroup () { //return head to be used in runner
             return head;
         }
 }

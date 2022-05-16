@@ -13,16 +13,17 @@ public abstract class MyNode extends StackPane  { //node for single individual r
     public MyNode( String name, double x, double y, double width, double height) {
 
         rectangle = new Rectangle( width, height); // new rectangle of x width and y height
-        rectangle.setStroke(Color.BLACK);
+		rectangle.setStroke(Color.WHITE);
         rectangle.setFill(Color.GREY);
-
+       
         label = new Label(name); //label on top of rectangles
 
+        label.setTextFill(Color.WHITE);
         // set position
         setTranslateX(x);
         setTranslateY(y);
-
-        getChildren().addAll( rectangle, label);
+       
+        getChildren().addAll(rectangle);
 
     }
     public int getNum() {
@@ -35,3 +36,4 @@ public abstract class MyNode extends StackPane  { //node for single individual r
     }
 
 }
+
