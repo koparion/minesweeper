@@ -5,8 +5,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * ChooseBtn inherits Button
+ *
+ */
 public class ChooseBtn extends Button{
-
+	/**
+	 * sets size and color of buttons
+	 * @param str
+	 */
 	public ChooseBtn(String str){
         setText(str);  
         setMinWidth(175); 

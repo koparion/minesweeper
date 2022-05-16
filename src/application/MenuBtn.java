@@ -6,8 +6,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * MenuBtn inherits Button
+ */
 public class MenuBtn extends Button{
-	
+	/**
+	 * sets size and color of buttons
+	 * @param text
+	 */
 	 public MenuBtn(String text){
 	        setText(text);   
 	        setMaxWidth(200);  
